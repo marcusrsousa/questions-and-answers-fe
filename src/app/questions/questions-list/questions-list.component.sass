@@ -1,0 +1,12 @@
+@use '@angular/material' as mat
+
+$my-palette: mat.define-palette(mat.$pink-palette)
+
+.container
+    padding: 8px 240px
+
+.link
+    cursor: pointer
+    color: mat.get-color-from-palette($my-palette, 300)
+        
+    

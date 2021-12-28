@@ -1,0 +1,3 @@
+<div class="container">
+    <mat-card *ngFor="let question of questions | async" class="mat-h3"><span class="link" routerLink="/questions/{{question.id}}">{{question.statement}}</span></mat-card>
+</div>

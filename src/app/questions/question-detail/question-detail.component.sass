@@ -1,0 +1,27 @@
+@use '@angular/material' as mat
+
+$my-palette: mat.define-palette(mat.$pink-palette)
+
+.container
+    margin: auto
+    width: 50%
+    padding-top: 24px 
+
+.title
+    color: mat.get-color-from-palette($my-palette, 300)
+
+.buttons
+    float: right
+    
+mat-form-field
+    width: 850px
+
+mat-card
+    height: 300px
+    width: 850px
+
+.save
+    display: flex
+    width: 60px
+    justify-content: space-between
+    align-items: center

@@ -1,0 +1,24 @@
+<div class="container">
+    <mat-card>
+        <div class="mat-h3 title">{{question.statement}}</div>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Best Answer</mat-label>
+            <textarea rows="10" matInput placeholder="Ex. The correct answer is..." [value]="question.answer"
+                (input)="question.answer = getValue($event)"></textarea>
+        </mat-form-field>
+        <div class="buttons">
+            <button mat-button routerLink="/questions">Back</button>
+            <span *ngIf="loading$ | async as isLoading; else notLoading">
+                <button mat-button color="primary" disabled="true">
+                    <div class="save"><span>Save</span>
+                        <mat-spinner diameter=20></mat-spinner>
+                    </div>
+                </button>
+            </span>
+            <ng-template #notLoading>
+                <button mat-button color="primary" (click)="onSave()">Save</button>
+            </ng-template>
+            
+        </div>
+    </mat-card>
+</div>
