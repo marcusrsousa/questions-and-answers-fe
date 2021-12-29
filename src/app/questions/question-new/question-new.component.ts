@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { finalize, Subject } from 'rxjs';
 import { loader } from 'src/app/shared/rxjs';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
@@ -15,21 +16,31 @@ export class QuestionNewComponent implements OnInit {
 
   question: Question = {
     id: 0,
-    statement: "",
-    answer: "",
-    user: ""
+    statement: '',
+    answer: '',
+    user: ''
   };
+
+  id: number;
 
   loading$ = new Subject<boolean>();
 
-  constructor(private questionService: QuestionService, private snarckBarService: SnackBarService) {
+  constructor(private route: ActivatedRoute, private questionService: QuestionService, private snarckBarService: SnackBarService) {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.id) {
+      questionService.getById(this.id).subscribe(question => this.question = question)
+    }
   }
 
   ngOnInit(): void {
   }
 
   onSave() {
-    this.questionService.create(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect("Statement created.", "/questions"))).subscribe();
+    if (this.id) {
+      this.questionService.update(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect('Question updated.', '/questions/author/' + this.question.user))).subscribe();
+      return;
+    }
+    this.questionService.create(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect('Question created.', '/questions'))).subscribe();
 
   }
 

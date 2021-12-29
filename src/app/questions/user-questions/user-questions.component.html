@@ -1,0 +1,11 @@
+<div class="container">
+    <mat-card *ngFor="let question of questions | async" class="mat-h3">
+        <div class="space-between">
+            <div>
+                <div class="link" routerLink="/questions/edit/{{question.id}}">{{question.statement}}</div>
+                <div *ngIf="question.answer">Best Answer: {{ question.answer }}</div>
+            </div>
+            <mat-icon class="link" aria-hidden="false" aria-label="Delete" (click)="onDelete(question.id)" matTooltip="Delete the question">delete</mat-icon>
+        </div>
+    </mat-card>
+</div>

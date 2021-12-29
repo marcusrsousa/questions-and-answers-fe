@@ -6,14 +6,17 @@ import { QuestionDetailComponent } from './question-detail/question-detail.compo
 import { QuestionsListComponent } from './questions-list/questions-list.component';
 import { QuestionsRoutingModule } from './questions-routing.module';
 import { QuestionNewComponent } from './question-new/question-new.component';
+import { DeleteDialog, UserQuestionsComponent } from './user-questions/user-questions.component';
 
 
 
 @NgModule({
   declarations: [
     QuestionsListComponent,
-    QuestionDetailComponent,
-    QuestionNewComponent
+    QuestionDetailComponent, 
+    QuestionNewComponent,
+    UserQuestionsComponent,
+    DeleteDialog
   ],
   imports: [
     CommonModule,

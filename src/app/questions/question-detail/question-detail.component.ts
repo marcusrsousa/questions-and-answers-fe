@@ -16,9 +16,9 @@ export class QuestionDetailComponent implements OnInit {
 
   question: Question = {
     id: 0,
-    statement: "",
-    answer: "",
-    user: ""
+    statement: '',
+    answer: '',
+    user: ''
   };
 
   loading$ = new Subject<boolean>();
@@ -32,7 +32,7 @@ export class QuestionDetailComponent implements OnInit {
   }
 
   onSave() {
-    this.questionService.update(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect("Answer saved.", "/questions"))).subscribe();
+    this.questionService.update(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect('Answer saved.', '/questions'))).subscribe();
 
   }
 

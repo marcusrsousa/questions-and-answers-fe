@@ -10,9 +10,14 @@ export class SnackBarService {
   constructor(private _snackBar: MatSnackBar, private router: Router) { }
 
   openAndRedirect(message: string, route: string) {
+   this.open(message); 
+   this.router.navigateByUrl(route);
+  }
+
+  open(message: string) {
     this._snackBar.open(message, undefined, {
       duration: 3000,
     });
-    this.router.navigateByUrl(route);
+    
   }
 }

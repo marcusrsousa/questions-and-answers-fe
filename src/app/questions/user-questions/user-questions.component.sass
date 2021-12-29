@@ -1,0 +1,23 @@
+@use '@angular/material' as mat
+
+$my-palette: mat.define-palette(mat.$pink-palette)
+
+.container
+    padding: 8px 240px
+
+.link
+    cursor: pointer
+    color: mat.get-color-from-palette($my-palette, 300)
+
+.right
+    display: flex
+    justify-content: flex-end
+    padding-bottom: 8px
+
+.space-between
+    display: flex
+    justify-content: space-between
+    align-items: center
+    
+
+        
