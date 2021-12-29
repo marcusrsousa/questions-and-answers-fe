@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, Subject } from 'rxjs';
 import { loader } from 'src/app/shared/rxjs';
@@ -14,6 +15,9 @@ import { QuestionService } from '../question.service';
 })
 export class QuestionNewComponent implements OnInit {
 
+  statement = new FormControl('', [Validators.required]);
+  user = new FormControl('', [Validators.required]);
+
   question: Question = {
     id: 0,
     statement: '',
@@ -28,7 +32,11 @@ export class QuestionNewComponent implements OnInit {
   constructor(private route: ActivatedRoute, private questionService: QuestionService, private snarckBarService: SnackBarService) {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if (this.id) {
-      questionService.getById(this.id).subscribe(question => this.question = question)
+      questionService.getById(this.id).subscribe(question => {
+        this.question = question;
+        this.statement.setValue(question.statement);
+        this.user.setValue(question.user);
+      });
     }
   }
 
@@ -36,6 +44,15 @@ export class QuestionNewComponent implements OnInit {
   }
 
   onSave() {
+    if (this.statement.invalid || this.user.invalid) {
+      this.statement.markAsTouched();
+      this.user.markAsTouched();
+      return
+    }
+
+    this.question.statement = this.statement.value;
+    this.question.user = this.user.value;
+
     if (this.id) {
       this.questionService.update(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect('Question updated.', '/questions/author/' + this.question.user))).subscribe();
       return;

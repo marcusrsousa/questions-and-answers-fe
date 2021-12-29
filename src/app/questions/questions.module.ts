@@ -7,6 +7,7 @@ import { QuestionsListComponent } from './questions-list/questions-list.componen
 import { QuestionsRoutingModule } from './questions-routing.module';
 import { QuestionNewComponent } from './question-new/question-new.component';
 import { DeleteDialog, UserQuestionsComponent } from './user-questions/user-questions.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,12 +17,13 @@ import { DeleteDialog, UserQuestionsComponent } from './user-questions/user-ques
     QuestionDetailComponent, 
     QuestionNewComponent,
     UserQuestionsComponent,
-    DeleteDialog
+    DeleteDialog    
   ],
   imports: [
     CommonModule,
     QuestionsRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class QuestionsModule { }

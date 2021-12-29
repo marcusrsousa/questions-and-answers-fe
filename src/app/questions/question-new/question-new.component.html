@@ -2,13 +2,11 @@
     <mat-card>
         <mat-form-field appearance="fill">
             <mat-label>Question</mat-label>
-            <textarea rows="8" matInput placeholder="Ex. What is the most..." [value]="question.statement"
-                (input)="question.statement = getValue($event)"></textarea>
+            <textarea rows="8" matInput placeholder="Ex. What is the most..." [formControl]="statement" required></textarea>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Author</mat-label>
-            <input matInput [value]="question.user"
-                (input)="question.user = getValue($event)"/>
+            <input matInput [formControl]="user" required/>
         </mat-form-field>
         <div class="buttons">
             <button mat-button routerLink="/questions">Back</button>

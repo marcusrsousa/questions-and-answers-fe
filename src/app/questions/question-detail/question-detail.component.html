@@ -3,8 +3,7 @@
         <div class="mat-h3 title">{{question.statement}}</div>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Best Answer</mat-label>
-            <textarea rows="10" matInput placeholder="Ex. The correct answer is..." [value]="question.answer"
-                (input)="question.answer = getValue($event)"></textarea>
+            <textarea rows="10" matInput placeholder="Ex. The correct answer is..." [formControl]="answer" required></textarea>
         </mat-form-field>
         <div class="buttons">
             <button mat-button routerLink="/questions">Back</button>

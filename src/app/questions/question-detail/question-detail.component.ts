@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, Subject } from 'rxjs';
 import { loader } from 'src/app/shared/rxjs';
@@ -13,6 +14,8 @@ import { QuestionService } from '../question.service';
   styleUrls: ['./question-detail.component.sass']
 })
 export class QuestionDetailComponent implements OnInit {
+
+  answer = new FormControl('', [Validators.required]);
 
   question: Question = {
     id: 0,
@@ -32,6 +35,12 @@ export class QuestionDetailComponent implements OnInit {
   }
 
   onSave() {
+    if (this.answer.invalid) {
+      this.answer.markAsTouched();
+      return;
+    }
+
+    this.question.answer = this.answer.value;
     this.questionService.update(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect('Answer saved.', '/questions'))).subscribe();
 
   }
