@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Question } from '../model/question';
-import { QuestionService } from '../question.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { delay, finalize, Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { finalize, Subject } from 'rxjs';
 import { loader } from 'src/app/shared/rxjs';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
+
+import { Question } from '../model/question';
+import { QuestionService } from '../question.service';
 
 @Component({
   selector: 'app-question-detail',
@@ -18,7 +18,7 @@ export class QuestionDetailComponent implements OnInit {
     id: 0,
     statement: "",
     answer: "",
-    userName: ""
+    user: ""
   };
 
   loading$ = new Subject<boolean>();

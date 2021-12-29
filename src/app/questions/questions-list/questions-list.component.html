@@ -1,3 +1,11 @@
 <div class="container">
-    <mat-card *ngFor="let question of questions | async" class="mat-h3"><span class="link" routerLink="/questions/{{question.id}}">{{question.statement}}</span></mat-card>
+    <div class="right"><button mat-raised-button color="primary" routerLink="/questions/new">Ask Something</button>
+    </div>
+    <mat-card *ngFor="let question of questions | async" class="mat-h3">
+        <div class="space-between">
+            <div class="link" routerLink="/questions/{{question.id}}">{{question.statement}}</div>
+            <div class="mat-caption">Author: {{ question.user }}</div>
+        </div>
+        <div *ngIf="question.answer">Best Answer: {{ question.answer }}</div>
+    </mat-card>
 </div>

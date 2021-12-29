@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Question } from './model/question';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
+
+import { Question } from './model/question';
 
 
   
@@ -24,5 +25,9 @@ export class QuestionService {
 
   update(question: Question) {
     return this.http.put<Question>(this.QUESTION_URL + '/' + question.id, question);
+  }
+
+  create(question: Question) {
+    return this.http.post<Question>(this.QUESTION_URL, question);
   }
 }
