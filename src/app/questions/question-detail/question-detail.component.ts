@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { finalize, Subject } from 'rxjs';
+import { finalize, Subject, Subscription } from 'rxjs';
 import { loader } from 'src/app/shared/rxjs';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 
@@ -13,7 +13,7 @@ import { QuestionService } from '../question.service';
   templateUrl: './question-detail.component.html',
   styleUrls: ['./question-detail.component.sass']
 })
-export class QuestionDetailComponent implements OnInit {
+export class QuestionDetailComponent implements OnInit, OnDestroy {
 
   answer = new FormControl('', [Validators.required]);
 
@@ -21,14 +21,22 @@ export class QuestionDetailComponent implements OnInit {
     id: 0,
     statement: '',
     answer: '',
-    user: ''
+    user: {
+      id: 0,
+      name: ''
+    }
   };
 
   loading$ = new Subject<boolean>();
+  getByIdRef: Subscription;
+  updateRef: Subscription| null = null;
 
   constructor(private route: ActivatedRoute, private questionService: QuestionService, private snarckBarService: SnackBarService) {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    questionService.getById(id).subscribe(question => this.question = question)
+    this.getByIdRef = questionService.getById(id).subscribe(question => {
+      this.question = question;
+      this.answer.setValue(question.answer);
+    });
   }
 
   ngOnInit(): void {
@@ -41,12 +49,21 @@ export class QuestionDetailComponent implements OnInit {
     }
 
     this.question.answer = this.answer.value;
-    this.questionService.update(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect('Answer saved.', '/questions'))).subscribe();
+    this.updateRef = this.questionService.update(this.question).pipe(loader(this.loading$), finalize(() => this.snarckBarService.openAndRedirect('Answer saved.', '/questions'))).subscribe();
 
   }
 
   getValue(event: Event): string {
     return (event.target as HTMLInputElement).value;
+  }
+
+  ngOnDestroy() {
+    this.getByIdRef.unsubscribe();
+
+    if (this.updateRef) {
+      this.updateRef.unsubscribe();
+    }
+
   }
 
 }

@@ -1,0 +1,65 @@
+<h1 mat-dialog-title>Sign up</h1>
+<div mat-dialog-content>
+    <form [formGroup]="signupForm">
+        <mat-form-field appearance="fill" class="fullscreen">
+            <mat-label>name</mat-label>
+            <span matPrefix>
+                <mat-icon aria-hidden="false" aria-label="Name">name</mat-icon>
+            </span>
+            <input type="name" matInput formControlName="name">
+        </mat-form-field>
+        <div class="mat-small danger"
+            *ngIf="signupForm.controls['name'].touched && signupForm.controls['name'].errors?.['required']">
+            Name is required
+        </div>
+        <mat-form-field appearance="fill" class="fullscreen">
+            <mat-label>email</mat-label>
+            <span matPrefix>
+                <mat-icon aria-hidden="false" aria-label="Email">email</mat-icon>
+            </span>
+            <input type="email" matInput formControlName="email">
+        </mat-form-field>
+        <div class="mat-small danger"
+            *ngIf="signupForm.controls['email'].touched && signupForm.controls['email'].errors?.['required']">
+            Email is required
+        </div>
+        <div class="mat-small danger"
+            *ngIf="signupForm.controls['email'].touched && signupForm.controls['email'].errors?.['email']">
+            Enter a valid email address
+        </div>
+        <mat-form-field appearance="fill" class="fullscreen">
+            <mat-label>password</mat-label>
+            <span matPrefix>
+                <mat-icon aria-hidden="false" aria-label="Password">password</mat-icon>
+            </span>
+            <input type="password" matInput formControlName="password">
+        </mat-form-field>
+        <div class="mat-small danger"
+            *ngIf="signupForm.controls['password'].touched && signupForm.controls['password'].errors?.['required']">
+            Password is required
+        </div>
+        <div class="mat-small danger"
+            *ngIf="signupForm.controls['password'].touched && signupForm.controls['password'].errors?.['minlength']">
+            Password must have at least 6 characters
+        </div>
+        <mat-form-field appearance="fill" class="fullscreen">
+            <mat-label>confirm password</mat-label>
+            <span matPrefix>
+                <mat-icon aria-hidden="false" aria-label="Password">password</mat-icon>
+            </span>
+            <input type="password" matInput formControlName="confirm_password">
+        </mat-form-field>
+        <div class="mat-small danger"
+            *ngIf="signupForm.controls['confirm_password'].touched && signupForm.controls['confirm_password'].errors?.['required']">
+            Confirm password is required
+        </div>
+        <div class="mat-small danger"
+            *ngIf="signupForm.controls['confirm_password'].touched && signupForm.controls['confirm_password'].errors?.['matching']">
+            Confirm Password does not match
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions class="space-between">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button (click)="signUp()">Sign up</button>
+</div>

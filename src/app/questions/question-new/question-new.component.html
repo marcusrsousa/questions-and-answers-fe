@@ -4,11 +4,7 @@
             <mat-label>Question</mat-label>
             <textarea rows="8" matInput placeholder="Ex. What is the most..." [formControl]="statement" required></textarea>
         </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Author</mat-label>
-            <input matInput [formControl]="user" required/>
-        </mat-form-field>
-        <div class="buttons">
+       <div class="buttons">
             <button mat-button routerLink="/questions">Back</button>
             <span *ngIf="loading$ | async as isLoading; else notLoading">
                 <button mat-button color="primary" disabled="true">

@@ -20,7 +20,7 @@ export class QuestionService {
   }
 
   findByUser(user: string):Observable<Question[]> {
-    return this.http.get<Question[]>(this.QUESTION_URL + '?user=' + user);
+    return this.http.get<Question[]>(this.QUESTION_URL + '?user_id=' + user);
   }
 
   getById(id: number):Observable<Question> {

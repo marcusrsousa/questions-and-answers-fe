@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { finalize, Observable } from 'rxjs';
+import { finalize, Observable, Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 
 import { Question } from '../model/question';
@@ -12,10 +12,11 @@ import { QuestionService } from '../question.service';
   templateUrl: './user-questions.component.html',
   styleUrls: ['./user-questions.component.sass']
 })
-export class UserQuestionsComponent implements OnInit {
+export class UserQuestionsComponent implements OnInit, OnDestroy {
 
   questions: Observable<Question[]>;
   user: string;
+  dialogSubscription: Subscription | null = null;
 
   constructor(private route: ActivatedRoute, private questionService: QuestionService, public dialog: MatDialog, private snackBarService: SnackBarService) {
     this.user = this.route.snapshot.paramMap.get('user') ?? '';
@@ -25,10 +26,15 @@ export class UserQuestionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    if (this.dialogSubscription) {
+      this.dialogSubscription.unsubscribe();
+    }
+  }
+
   onDelete(id: number) {
     const dialogRef = this.dialog.open(DeleteDialog);
-
-    dialogRef.afterClosed().subscribe(result => result ? this.questionService.delete(id).pipe(finalize(() => this.snackBarService.open('Question deleted'))).subscribe(() => this.questions = this.questionService.findByUser(this.user)) : '');
+    this.dialogSubscription = dialogRef.afterClosed().subscribe(result => result ? this.questionService.delete(id).pipe(finalize(() => this.snackBarService.open('Question deleted'))).subscribe(() => this.questions = this.questionService.findByUser(this.user)) : '');
 
   }
 

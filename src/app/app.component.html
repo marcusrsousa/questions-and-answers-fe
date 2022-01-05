@@ -1,4 +1,10 @@
 <mat-toolbar color="primary">
-   <span class="link" routerLink="/">Questions And Answers</span>
+   <div class="space-between full-screen">
+      <div class="link" routerLink="/">Questions And Answers</div>
+      <div class="space-between">
+         <div class="mat-body padding">{{user?.name}}</div>
+         <mat-icon *ngIf="user" class="link" aria-hidden="false" aria-label="Logout" (click)="logout()">logout</mat-icon>
+      </div>
+   </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

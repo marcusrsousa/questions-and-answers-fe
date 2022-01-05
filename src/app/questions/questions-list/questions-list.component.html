@@ -4,7 +4,7 @@
     <mat-card *ngFor="let question of questions | async" class="mat-h3">
         <div class="space-between">
             <div class="link" routerLink="/questions/{{question.id}}">{{question.statement}}</div>
-            <div class="mat-caption">Author: {{ question.user }}</div>
+            <div class="mat-caption">Author: {{ question.user.name }}</div>
         </div>
         <div *ngIf="question.answer">Best Answer: {{ question.answer }}</div>
     </mat-card>
