@@ -1,11 +1,19 @@
 <div class="container">
-    <div class="right"><button mat-raised-button color="primary" routerLink="/questions/new">Ask Something</button>
-    </div>
-    <mat-card *ngFor="let question of questions | async" class="mat-h3">
-        <div class="space-between">
-            <div class="link" routerLink="/questions/{{question.id}}">{{question.statement}}</div>
-            <div class="mat-caption">Author: {{ question.user.name }}</div>
+    <div *ngIf="page$ | async as page">
+        <div class="right"><button mat-raised-button color="primary" routerLink="/questions/new">Ask Something</button>
         </div>
-        <div *ngIf="question.answer">Best Answer: {{ question.answer }}</div>
-    </mat-card>
+        <mat-card *ngFor="let question of page.data" class="mat-h3">
+            <div class="space-between">
+                <div class="link" routerLink="/questions/{{question.id}}">{{question.statement}}</div>
+                <div class="mat-caption">Author: {{ question.user.name }}</div>
+            </div>
+            <div *ngIf="question.answer">Best Answer: {{ question.answer }}</div>
+        </mat-card>
+
+        <mat-paginator *ngIf="page.data.length > 0" [length]="page.count" [pageSize]="page.size" [pageIndex]="page.page - 1" [pageSizeOptions]="[5, 10, 25, 100]"
+            (page)="changePage($event)" aria-label="Select page">
+        </mat-paginator>
+
+        <div *ngIf="page.data.length === 0" class="mat-h2 no-content">No Questions made yet.</div>
+    </div>
 </div>
