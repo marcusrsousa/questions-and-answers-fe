@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogPasswordComponent } from './shared/components/dialog-password/dialog-password.component';
 import { LoginService } from './shared/services/login.service';
 import { User } from './user/models/user';
 
@@ -11,7 +13,7 @@ export class AppComponent {
   title = 'questions-and-answers';
   user: User | null = null;
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, public dialog: MatDialog) {
     this.loginService.isTokenValid().subscribe(isTokenValid => {
       if (!isTokenValid) {
         this.user = null;
@@ -25,5 +27,9 @@ export class AppComponent {
 
   logout() {
     this.loginService.logout();
+  }
+
+  changePassword() {
+    this.dialog.open(DialogPasswordComponent, { width: '400px' });
   }
 }

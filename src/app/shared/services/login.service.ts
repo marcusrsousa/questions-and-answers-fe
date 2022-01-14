@@ -17,10 +17,10 @@ export class LoginService {
 
   signup(name: string, email: string, password: string) {
     return this.http.post<string>(this.API_URL + '/signup', {
-        name,
-        login: email,
-        password
-      });
+      name,
+      login: email,
+      password
+    });
   }
 
   login(email: string, password: string) {
@@ -35,6 +35,13 @@ export class LoginService {
           subscriber.complete();
         }, error: err => subscriber.error(err)
       })
+    });
+  }
+
+  changePassword(currentPassword: string, password: string) {
+    return this.http.post<string>(this.API_URL + '/change-password', {
+      currentPassword,
+      password
     });
   }
 

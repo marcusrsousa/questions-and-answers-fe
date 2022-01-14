@@ -18,4 +18,22 @@ export default class Validation {
       }
     };
   }
+
+  static notmatch(controlName: string, checkControlName: string): ValidatorFn {
+    return (controls: AbstractControl) => {
+      const control = controls.get(controlName);
+      const checkControl = controls.get(checkControlName);
+
+      if (checkControl?.errors && !checkControl.errors['notmatching']) {
+        return null;
+      }
+
+      if (control?.value === checkControl?.value) {
+        controls.get(checkControlName)?.setErrors({ notmatching: true });
+        return { notmatching: true };
+      } else {
+        return null;
+      }
+    };
+  }
 }

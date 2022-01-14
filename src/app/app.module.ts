@@ -10,12 +10,14 @@ import { AuthInterceptor } from './shared/auth-interceptor';
 import { DialogLoginComponent } from './shared/components/dialog-login/dialog-login.component';
 import { MaterialModule } from './shared/modules/material/material.module';
 import { DialogSingupComponent } from './shared/components/dialog-singup/dialog-singup.component';
+import { DialogPasswordComponent } from './shared/components/dialog-password/dialog-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogLoginComponent,
-    DialogSingupComponent
+    DialogSingupComponent,
+    DialogPasswordComponent
   ],
   imports: [
     BrowserModule,
