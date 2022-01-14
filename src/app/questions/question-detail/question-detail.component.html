@@ -1,8 +1,10 @@
 <div class="container">
     <mat-card>
-        <div class="mat-h3 title">{{question.statement}}</div>
-        <mat-form-field class="example-full-width" appearance="fill">
-            <mat-label>Best Answer</mat-label>
+        <div class="mat-h2 title">{{question.statement}}</div>
+        <div *ngIf="question.answers.length > 0" class="mat-h3">{{question.answers.length}} Answers</div>
+        <div *ngFor="let answer of question.answers" class="mat-body box">{{answer.text}}</div>
+        <mat-form-field  appearance="fill">
+            <mat-label>New Answer</mat-label>
             <textarea rows="10" matInput placeholder="Ex. The correct answer is..." [formControl]="answer" required></textarea>
         </mat-form-field>
         <div class="buttons">

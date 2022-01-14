@@ -4,7 +4,7 @@
             <div class="space-between">
                 <div>
                     <div class="link" routerLink="/questions/edit/{{question.id}}">{{question.statement}}</div>
-                    <div *ngIf="question.answer">Best Answer: {{ question.answer }}</div>
+                    <div *ngIf="question.answers">Last Answer: {{ question.answers[question.answers.length - 1] }}</div>
                 </div>
                 <mat-icon class="link" aria-hidden="false" aria-label="Delete" (click)="onDelete(question.id)"
                     matTooltip="Delete the question">delete</mat-icon>

@@ -26,7 +26,7 @@ export class QuestionService {
   }
 
   getById(id: number): Observable<Question> {
-    return this.http.get<Question>(this.QUESTION_URL + '/' + id).pipe(map(question => ({ ...question, answer: question.answer ?? '' })));
+    return this.http.get<Question>(this.QUESTION_URL + '/' + id).pipe(map(question => ({ ...question, answers: question.answers ?? [] })));
   }
 
   update(question: Question): Observable<Question> {

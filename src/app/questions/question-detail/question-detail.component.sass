@@ -1,6 +1,7 @@
 @use '@angular/material' as mat
 
-$my-palette: mat.define-palette(mat.$pink-palette)
+$pink-palette: mat.define-palette(mat.$pink-palette)
+$indigo-palette: mat.define-palette(mat.$indigo-palette)
 
 .container
     margin: auto
@@ -8,16 +9,18 @@ $my-palette: mat.define-palette(mat.$pink-palette)
     padding-top: 24px 
 
 .title
-    color: mat.get-color-from-palette($my-palette, 300)
+    color: mat.get-color-from-palette($pink-palette, 300)
 
 .buttons
-    float: right
+    display: flex
+    justify-content: flex-end
     
 mat-form-field
     width: 850px
+    margin-top: 24px
 
 mat-card
-    height: 300px
+    min-height: 300px
     width: 850px
 
 .save
@@ -25,3 +28,8 @@ mat-card
     width: 60px
     justify-content: space-between
     align-items: center
+
+.box
+    padding: 16px
+    margin-bottom: 8px
+    border-bottom: 1px dashed mat.get-color-from-palette($indigo-palette, 300)

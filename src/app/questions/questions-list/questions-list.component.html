@@ -7,7 +7,7 @@
                 <div class="link" routerLink="/questions/{{question.id}}">{{question.statement}}</div>
                 <div class="mat-caption">Author: {{ question.user.name }}</div>
             </div>
-            <div *ngIf="question.answer">Best Answer: {{ question.answer }}</div>
+            <div *ngIf="question.answers">Last Answer: {{ question.answers[question.answers.length - 1] }}</div>
         </mat-card>
 
         <mat-paginator *ngIf="page.data.length > 0" [length]="page.count" [pageSize]="page.size" [pageIndex]="page.page - 1" [pageSizeOptions]="[5, 10, 25, 100]"

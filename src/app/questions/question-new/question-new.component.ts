@@ -22,7 +22,7 @@ export class QuestionNewComponent implements OnInit, OnDestroy {
   question: Question = {
     id: 0,
     statement: '',
-    answer: '',
+    answers: [],
     user: {
       id: 0,
       name: ''
